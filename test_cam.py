@@ -2,7 +2,7 @@ import cv2
 from cv.yolo_multiplexer import YOLOMultiplexer
 
 def main():
-    vision = YOLOMultiplexer(det_model_name="yolov8n.pt", pose_model_name="yolov8n-pose.pt")
+    vision = YOLOMultiplexer(det_model_name="yolo26n.pt", pose_model_name="yolo26n-pose.pt")
     
     print("[INIT] Starting Mac webcam...")
     vision.start_camera(device_index=0)

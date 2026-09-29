@@ -9,7 +9,8 @@ def main():
     print("[INIT] Initializing Sensing Subsystem...")
     
     # 1. Hardware & Module Instantiation
-    vision = YOLOMultiplexer()
+    # CRITICAL UPDATE: Explicitly pass your baked-in local model names here
+    vision = YOLOMultiplexer(det_model_name="yolo26n.pt", pose_model_name="yolo26n-pose.pt")
     vision.start_camera(device_index=0)
 
     lidar = LidarTracker(port='/dev/ttyUSB0', baud=460800)
@@ -23,7 +24,6 @@ def main():
     try:
         # Stream scans directly from RPLidar
         for scan in lidar.lidar.iter_scans(scan_type='normal', max_buf_meas=500):
-            
             # A. Process Camera (YOLO Detection / Pose + Optical Flow Tilt Tracking)
             task, cv_detections, tilt_alert, _ = vision.process_frame()
 
