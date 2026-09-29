@@ -1,0 +1,9 @@
+services:
+  sensing:
+    build: .
+    image: iahmed44/sensing_subsys:latest
+    privileged: true
+    network_mode: "host"
+    volumes:
+      - /dev:/dev
+    command: python main_sensing.py
