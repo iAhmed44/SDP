@@ -107,6 +107,7 @@ class LidarTracker:
         # 1. Estimate Ego-Velocity via median range-rate inversion of forward objects
         v_candidates = []
         updated_tracked = {}
+        matched_ids = set()
 
         for det in detected_clusters:
             # Associate with closest previous tracked cluster
@@ -121,6 +122,7 @@ class LidarTracker:
                         best_id = c_id
 
             if best_id is not None:
+                matched_ids.add(best_id)
                 prev = self.tracked_clusters[best_id]
                 v_rel = (det["dist_m"] - prev["dist_m"]) / dt
                 c_id = best_id
@@ -145,6 +147,12 @@ class LidarTracker:
                 "stop_time": stop_time,
                 "last_seen": now
             }
+
+        # Coasting Logic: Preserve unmatched old tracks for up to 1.0 second
+        for c_id, prev in self.tracked_clusters.items():
+            if c_id not in matched_ids:
+                if now - prev["last_seen"] < 1.0:
+                    updated_tracked[c_id] = prev
 
         # Update ego-motion speed if valid stationary candidates exist
         if v_candidates:

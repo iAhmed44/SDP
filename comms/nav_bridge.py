@@ -1,6 +1,7 @@
 import json
 import time
 import zmq
+import numpy as np
 
 class NavBridge:
     """
