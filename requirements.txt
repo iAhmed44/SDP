@@ -1,0 +1,6 @@
+ultralytics
+opencv-python-headless
+rplidar-roboticia
+gpiozero
+# lgpio    if installed in raspberry pi, remove the comments #
+pyzmq
