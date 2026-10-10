@@ -1,0 +1,11 @@
+# Reuse the existing working venv first. Do NOT blindly reinstall it.
+# GUI version for the diagnostic window; do not also install opencv-python-headless.
+ultralytics
+opencv-python
+rplidarc1==0.1.3
+gpiozero
+lgpio
+numpy
+pyserial
+pyzmq
+# Torch/torchvision versions must match the working Pi environment.

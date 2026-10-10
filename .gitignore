@@ -1,4 +1,6 @@
 venv/
 __pycache__/
 *.pyc
+Sensing_LOG/
 .DS_Store
+.lgd-*
